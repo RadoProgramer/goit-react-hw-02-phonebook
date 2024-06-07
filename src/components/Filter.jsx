@@ -1,5 +1,5 @@
-import React from 'react';
-import { nanoid } from 'nanoid/non-secure';
+import React from "react";
+import { nanoid } from "nanoid/non-secure";
 
 const Filter = ({ filter, onChange }) => {
   const searchId = nanoid();

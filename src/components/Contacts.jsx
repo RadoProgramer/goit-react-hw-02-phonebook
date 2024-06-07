@@ -1,19 +1,20 @@
-import { nanoid } from 'nanoid/non-secure';
-import { Component } from 'react';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
-import styles from './Contacts.module.scss';
+import { nanoid } from "nanoid/non-secure";
+import { Component } from "react";
+import ContactForm from "./ContactForm";
+import ContactList from "./ContactList";
+import Filter from "./Filter";
 
 export default class Contacts extends Component {
   state = {
     contacts: [],
-    filter: ''
+    filter: "",
   };
 
   addContact = (name, number) => {
     const { contacts } = this.state;
-    const isDuplicate = contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase());
+    const isDuplicate = contacts.some(
+      (contact) => contact.name.toLowerCase() === name.toLowerCase(),
+    );
 
     if (isDuplicate) {
       alert(`${name} is already in the contacts.`);
@@ -23,17 +24,17 @@ export default class Contacts extends Component {
     const newContact = {
       id: nanoid(),
       name,
-      number
+      number,
     };
 
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact]
+    this.setState((prevState) => ({
+      contacts: [...prevState.contacts, newContact],
     }));
   };
 
   deleteContact = (id) => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id)
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter((contact) => contact.id !== id),
     }));
   };
 
@@ -48,7 +49,11 @@ export default class Contacts extends Component {
         <ContactForm onAddContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter filter={this.state.filter} onChange={this.handleFilterChange} />
-        <ContactList contacts={this.state.contacts} filter={this.state.filter} onDelete={this.deleteContact} />
+        <ContactList
+          contacts={this.state.contacts}
+          filter={this.state.filter}
+          onDelete={this.deleteContact}
+        />
       </>
     );
   }

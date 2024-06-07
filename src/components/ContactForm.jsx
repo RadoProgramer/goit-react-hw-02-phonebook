@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { nanoid } from 'nanoid/non-secure';
-import styles from './Contacts.module.scss';
+import React, { Component } from "react";
+import { nanoid } from "nanoid/non-secure";
+import styles from "./Contacts.module.scss";
 
 export default class ContactForm extends Component {
   state = {
-    name: '',
-    number: '',
-    numberError: ''
+    name: "",
+    number: "",
+    numberError: "",
   };
 
   handleChange = (ev) => {
     const { name, value } = ev.currentTarget;
-    if (name === 'number') {
+    if (name === "number") {
       this.setState({ [name]: this.formatPhoneNumber(value) }, () => {
         this.validateNumber();
       });
@@ -21,14 +21,12 @@ export default class ContactForm extends Component {
   };
 
   formatPhoneNumber = (value) => {
-    // Remove all non-numeric characters
-    const cleaned = ('' + value).replace(/\D/g, '');
+    const cleaned = ("" + value).replace(/\D/g, "");
 
-    // Split the cleaned number into groups
     const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
 
     if (match) {
-      return [match[1], match[2], match[3]].filter(Boolean).join('-');
+      return [match[1], match[2], match[3]].filter(Boolean).join("-");
     }
 
     return value;
@@ -38,9 +36,9 @@ export default class ContactForm extends Component {
     const { number } = this.state;
     const phonePattern = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
     if (!phonePattern.test(number)) {
-      this.setState({ numberError: 'Invalid phone number format' });
+      this.setState({ numberError: "Invalid phone number format" });
     } else {
-      this.setState({ numberError: '' });
+      this.setState({ numberError: "" });
     }
   };
 
@@ -49,12 +47,12 @@ export default class ContactForm extends Component {
     const { name, number, numberError } = this.state;
 
     if (numberError) {
-      alert('Please fix the errors before submitting');
+      alert("Please fix the errors before submitting");
       return;
     }
 
     this.props.onAddContact(name, number);
-    this.setState({ name: '', number: '' });
+    this.setState({ name: "", number: "" });
   };
 
   render() {
